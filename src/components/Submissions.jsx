@@ -4,6 +4,7 @@ import { Controlled as ControlledEditor } from "react-codemirror2"; // Import th
 import "codemirror/lib/codemirror.css"; // Import the necessary CodeMirror styles
 import "codemirror/theme/material.css"; // Import the material dark theme
 import { python } from "@codemirror/lang-python"; // Import the Python mode (adjust this based on your needs)
+import { onBackgroundMessage } from "firebase/messaging/sw";
 
 const Submissions = () => {
   const [code, setCode] = useState(""); // Store the code input
@@ -72,26 +73,9 @@ const Submissions = () => {
   };
 
   return (
-    <div className="submission-container">
-      <h1>Submit Your Code</h1>
-
-      {/* CodeMirror editor for code input */}
-      <ControlledEditor
-        value={code}
-        onBeforeChange={(editor, data, value) => setCode(value)} // Update the code state as the user types
-        options={{
-          mode: python, // Set the language mode to Python
-          theme: "material", // Set the theme to material (dark theme)
-          lineNumbers: true, // Show line numbers
-          indentUnit: 4, // Set indentation to 4 spaces
-          matchBrackets: true, // Enable bracket matching
-          autoCloseBrackets: true, // Enable auto-closing of brackets
-          viewportMargin: Infinity, // Smooth scrolling
-        }}
-      />
-
-      {/* Language selection */}
-      <div>
+    <div className="main-container">
+      {" "}
+      <div className="settings">
         <select
           value={languageId}
           onChange={(e) => setLanguageId(e.target.value)}
@@ -100,18 +84,31 @@ const Submissions = () => {
           <option value="54">C++</option>
           <option value="62">Java</option>
           {/* Add more languages as needed */}
-        </select>
+        </select>{" "}
+        <button onClick={submitCode} disabled={loading}>
+          {loading ? "Judging..." : "Submit"}
+        </button>
+        <h3>Output</h3>
       </div>
-
       {/* Submit button */}
-      <button onClick={submitCode} disabled={loading}>
-        {loading ? "Judging..." : "Submit"}
-      </button>
-
-      {/* Output display */}
-      <div>
-        <h3>Output:</h3>
-        <pre>{output}</pre>
+      <div className="left-container">
+        {" "}
+        <ControlledEditor
+          value={code}
+          onBeforeChange={(editor, data, value) => setCode(value)} // Update the code state as the user types
+          options={{
+            mode: python, // Set the language mode to Python
+            theme: "material", // Set the theme to material (dark theme)
+            lineNumbers: true, // Show line numbers
+            indentUnit: 4, // Set indentation to 4 spaces
+            matchBrackets: true, // Enable bracket matching
+            autoCloseBrackets: true, // Enable auto-closing of brackets
+            viewportMargin: Infinity, // Smooth scrolling
+          }}
+        />{" "}
+        <div>
+          <ControlledEditor value={output} />
+        </div>
       </div>
     </div>
   );

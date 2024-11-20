@@ -25,9 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
 }
 
 h1 {
@@ -72,14 +70,7 @@ button:focus-visible {
 
 
 
-.submission-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #282c34;
-  color: #ffffff;
-  border-radius: 8px;
-}
+
 
 .problem-statement h2 {
   margin-bottom: 10px;
@@ -98,4 +89,33 @@ button {
 button:disabled {
   background: gray;
   cursor: not-allowed;
+}
+
+.CodeMirror {
+
+  width: 88vh;
+  max-width: 100vh;
+
+
+
+}
+
+
+.main-container{
+display: flex;
+flex-direction: column;
+
+
+
+}
+
+.left-container{
+  display: flex;
+}
+
+.settings{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+  height: 7vh;
 }
