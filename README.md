@@ -1,0 +1,1 @@
+- I am now creating a code as you go kind of website that lets you scribble code and see output quickly without having to take extra steps.
